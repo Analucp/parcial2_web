@@ -1,4 +1,3 @@
-const { v4: uuidv4 } = require('uuidv4');
 let libros = require('../models/libros_100.json');
 
 // GET /api/libros
@@ -9,7 +8,7 @@ exports.getAll = (req, res) => {
 // GET /api/libros/:id
 exports.getById = (req, res) => {
   const { id } = req.params;
-  if (!uuidValidate(id)) {
+  if (!id) {
     return res.status(400).json({ error: "ID inválido" });
   }
   const libro = libros.find(l => l.id === id);
@@ -35,19 +34,14 @@ exports.create = (req, res) => {
     return res.status(409).json({ error: "El titulo ya existe" });
     }
 
-    const nuevoLibro = {    
-    id: require('uuid').v4(),
-    title: title,
-    author: author,
-    year: year
-  } = req.body;
-  libros.push(nuevoLibro);
-  res.status(201).json(nuevoLibro);
+    //const nuevoLibro = {id,title,author,year} = req.body;
+  //libros.push(nuevoLibro);
+  //res.status(201).json(nuevoLibro);
 
 // PUT /api/libros/:id
 exports.update = (req, res) => {
   const { id } = req.params;
-  if (!uuidValidate(id)) {
+  if (!id) {
     return res.status(400).json({ error: "ID inválido" });
   }
 
@@ -82,7 +76,7 @@ exports.update = (req, res) => {
 // DELETE /api/libros/:id
 exports.remove = (req, res) => {
   const { id } = req.params;
-  if (!uuidValidate(id)) {
+  if (!id) {
     return res.status(400).json({ error: "ID inválido" });
   }
 
